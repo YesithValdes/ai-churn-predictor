@@ -47,7 +47,7 @@ export default function ChurnDashboard() {
           <h2 className="text-xl font-semibold mb-6">Datos del Cliente</h2>
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium mb-2 text-zinc-400">Antigüedad (Meses)</label>
+              <label className="block text-sm font-medium mb-2 text-zinc-400">Antiguedad (Meses)</label>
               <input name="tenure" type="number" required className="w-full bg-zinc-800 border-zinc-700 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Ej: 12" />
             </div>
             <div>
