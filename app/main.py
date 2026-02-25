@@ -64,7 +64,7 @@ def get_all_customers(db: Session = Depends(get_db)):
     customers = db.query(models.Customer).all()
     return customers
 
-@app.post("/predict/", response_model=dict)
+@app.post("/predict", response_model=dict)
 def predict_churn(customer: schemas.CustomerCreate, db: Session = Depends(get_db)):
     if model is None:
         raise HTTPException(status_code=503, detail="Modelo de IA no disponible")
