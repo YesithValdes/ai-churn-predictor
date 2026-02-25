@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_churn
+    restart: always
+    environment:
+      POSTGRES_USER: alexi
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: churn_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: . # <--- ESTO ES LO NUEVO: Usa el Dockerfile que creamos
+    container_name: fastapi_churn_app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db # <--- Esto asegura que la DB encienda antes que la IA
+    environment:
+      DATABASE_URL: "postgresql://alexi:password123@db:5432/churn_db"
+  
+  frontend: # EL NUEVO MICROSERVICIO
+    build: ./frontend
+    container_name: nextjs_churn_ui
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # <--- AÑADE ESTA LÍNEA (Volumen anónimo)
+      - /app/.next       # <--- Y ESTA TAMBIÉN # Permite editar código y ver cambios sin reiniciar Docker
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
