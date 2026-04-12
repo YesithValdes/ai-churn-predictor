@@ -42,19 +42,44 @@ $$Accuracy = \frac{TP + TN}{TP + TN + FP + FN} \approx 0.7576$$
 
 ## 🔧 Configuración para Desarrollo Local
 
-Para ejecutar este proyecto en tu propia máquina (como en un **Aspire A515-45**):
+Para ejecutar este proyecto y levantar los diferentes microservicios en tu máquina local:
 
 1.  **Clonar el repositorio**:
     ```bash
-    git clone [https://github.com/YesithValdes/ai-churn-predictor.git](https://github.com/YesithValdes/ai-churn-predictor.git)
+    git clone https://github.com/YesithValdes/ai-churn-predictor.git
+    cd ai-churn-predictor
     ```
-2.  **Configurar Backend**:
-    * Instalar dependencias: `pip install -r requirements.txt`.
-    * Iniciar API: `uvicorn app.main:app --reload`.
-3.  **Configurar Frontend**:
-    * Instalar dependencias: `cd frontend && npm install`.
-    * Configurar `.env` con `NEXT_PUBLIC_API_URL=http://localhost:8000`.
-    * Iniciar: `npm run dev`.
+
+2.  **Levantar el Backend (Microservicio API)**:
+    Se recomienda usar un entorno virtual para aislar las dependencias de Python.
+    ```bash
+    # Crear y activar entorno virtual (Windows)
+    python -m venv venv
+    venv\Scripts\activate
+    
+    # Instalar dependencias
+    pip install -r requirements.txt
+    
+    # Iniciar la API
+    uvicorn app.main:app --reload
+    ```
+    La API estará disponible en `http://localhost:8000` y su documentación en `http://localhost:8000/docs`.
+
+3.  **Levantar el Frontend (Microservicio Cliente)**:
+    Abre una nueva terminal, mantén el backend corriendo, y desde la raíz del proyecto viaja al frontend:
+    ```bash
+    cd frontend
+    
+    # Instalar dependencias
+    npm install
+    
+    # Crea un archivo .env en la carpeta frontend y añade:
+    # NEXT_PUBLIC_API_URL=http://localhost:8000
+    
+    # Iniciar la aplicación en modo desarrollo
+    npm run dev
+    ```
+    El frontend estará disponible interactivo en `http://localhost:3000`.
 
 ---
 
