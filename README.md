@@ -42,7 +42,34 @@ $$Accuracy = \frac{TP + TN}{TP + TN + FP + FN} \approx 0.7576$$
 
 ## 🔧 Configuración para Desarrollo Local
 
-Para ejecutar este proyecto y levantar los diferentes microservicios en tu máquina local:
+Para ejecutar este proyecto, tienes dos opciones: usar Docker para levantar todo automáticamente de forma orquestada (recomendado) o levantar cada servicio manualmente.
+
+### Opción A: Usando Docker (Recomendado)
+
+El proyecto cuenta con un archivo `docker-compose.yml` que orquesta los tres microservicios: la base de datos PostgreSQL, el backend en FastAPI y el frontend interactivo en Next.js.
+
+1.  **Clonar el repositorio**:
+    ```bash
+    git clone https://github.com/YesithValdes/ai-churn-predictor.git
+    cd ai-churn-predictor
+    ```
+
+2.  **Levantar los microservicios**:
+    Asegúrate de tener Docker Desktop instalado y corriendo. Luego, simplemente ejecuta en la raíz del proyecto:
+    ```bash
+    docker-compose up -d --build
+    ```
+    
+    Esto construirá y enlazará en red internamente los siguientes servicios de manera automática:
+    - **Base de Datos (PostgreSQL)**: Expuesta en el puerto `5432`
+    - **Backend API (FastAPI)**: Disponible en `http://localhost:8000` (Docs en `http://localhost:8000/docs`)
+    - **Frontend interactivo (Next.js)**: Disponible en `http://localhost:3000`
+
+    *Nota: Para detener los contenedores y apagarlos, puedes usar `docker-compose down`.*
+
+### Opción B: Manualmente (Terminal por Terminal)
+
+Si no deseas utilizar Docker, puedes correrlos individualmente:
 
 1.  **Clonar el repositorio**:
     ```bash
@@ -51,7 +78,7 @@ Para ejecutar este proyecto y levantar los diferentes microservicios en tu máqu
     ```
 
 2.  **Levantar el Backend (Microservicio API)**:
-    Se recomienda usar un entorno virtual para aislar las dependencias de Python.
+    Se recomienda usar un entorno virtual para aislar las dependencias de Python. (Asume que ya tienes un PostgreSQL local instalado corriendo por tu cuenta).
     ```bash
     # Crear y activar entorno virtual (Windows)
     python -m venv venv
